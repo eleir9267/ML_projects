@@ -303,3 +303,337 @@ use the following commands to find the problem and fix it:
 
 git diff
 git status
+
+---------------------------------------------------------
+|                    PYTHON QUIRKS                      |
+---------------------------------------------------------
+
+The first rule of Python is we do not talk about Py-
+
+A large part of working with computers involves thinking
+in binary true/false (1 or 0). This requires a few new
+operators...
+Comparison operators:
+ -  op1 == op2  true if op1 equals op2, false otherwise.
+ -  op1 != op2  false if op1 equals op2, true otherwise.
+ -  op1 > op2   true if op1 is greater than op2,
+                false otherwise.
+ -  op1 < op2   true if op1 is less than op2, false
+                otherwise.
+ -  op1 >= op2  true if op1 is greater than or equal to
+                op2, false otherwise.
+ -  op1 <= op2  true if op1 is less than or equal to op2,
+                false otherwise.
+Logical operators:
+ -  op1 and op2 true if both op1 and op2 are true.
+ -  op1 or op2  true if either of op1 or op2 are true.
+ -  not op1     true if op1 is false.
+
+Python interprets some math syntax in helpful ways, for
+example:
+
+0 < x <= 10
+
+Is the same as...
+
+0 < x and x <= 10
+
+Python has if-elif-else blocks so that you can decide
+to execute certain blocks depending on what a condition
+evaluates to. For example:
+
+if 6 == 5:
+    print("Hello")
+elif not (7 > 8):
+    print("Mr.")
+else:
+    print("Krabs")
+
+Would print "Mr.", and nothing else.
+
+Python has a few other important datatypes, each of which
+serves as a type of container for other datatypes:
+ - Lists are ordered and mutable,
+        [1, 3, 2] ["hi", "bye", 3] []
+ - Tuples are ordered and immutable,
+        (1, 3, 2) 4, 6, 5 ()
+ - Sets are unordered and mutable,
+        {1, 3, 2} set()
+ - Dictionaries are unordered and mutable,
+        {"hi":"bye", 1:2} dict() {}
+
+Where ordered means that each element in the container maps
+to a sepific index,
+And mutable means that if you want to change one element in
+the container, you don't need to recreate the entire
+container (Integers, Floats, and Booleans are immutable).
+
+Lists and tuples are indexed from 0 up to n-1, where n is
+the length of the list or tuple. To access an element e in
+a list at an index i do the following:
+
+a_list[i]
+ ->e
+
+You can also create a list that is practically 2-dimensional
+by making each of its elements other lists.
+
+a_array = [[1,2,3], [4,5,6], [7,8,9]]
+a_array[0,0]
+ ->1
+a_array[2,1]
+ ->8
+
+Sets can't be indexed. They exist so that you can quickly
+check if something exists in the set:
+
+x in a_set
+ ->true
+
+The "in" keyword can be applied to any of these containers,
+but it's most efficient when used with a set or a dict.
+
+Dictionaries are a collection of key-value pairs. They
+let you map an input key to an output value. To get a
+value v with key k from a dict:
+
+a_dict[k]
+ -> v
+
+Some extra things that might crop up:
+
+List comprehensions let you quickly form a list!
+
+[x for x in range(0, 5) if (x % 2) != 0]
+
+This forms a list containing all of the odd numbers between
+0 and 5-1. More on the range function later.
+
+Loops are blocks of code that execute repeatedly while a
+condition is true. Python has two types of loops; while
+loops and for loops. While loops take the form:
+
+while condition:
+    code_block
+
+To loop through elements of a list with a while loop,
+do the following:
+
+i = 0
+while i < len(a_list):
+    # a_list[i]
+    i += 1
+
+for loops take the form:
+
+for elem in iter:
+    code_block
+
+Where elem is an element in the iterable container iter.
+iter can be any of the containers we talked about.
+
+To loop through a list with a for loop:
+
+for elem in a_list:
+    code_block
+
+Or...
+
+for i in range(0, len(a_list)):
+    # a_list[i]
+
+The range function here generates an iterable containing
+all of the numbers from 0 to len(a_list) - 1.
+
+To iterate through a dictionary with a for loop:
+
+for k, v in a_dict.items():
+    code_block
+
+Here we get all key-value pairs from a_dict, then unpack
+them such that k is the key corresponding to the  value v.
+
+Unpacking is just a feature in python that lets you do
+some funky assignments:
+
+a, b = 1, 2
+
+Here a and b are variables assigned the values 1 and 2.
+Looks simple but in reality 1, 2 is being packaged in
+the form of a tuple, (1, 2), and being unpacked for the
+assignment. You can explicitly specify an unpacking by
+doing the following:
+
+a, b = *(1, 2)
+
+But... you only need to unpack explicitly when passing
+all of the contents of a container as arguments to a
+function. This will almost never be important. Here's
+what it looks like anyway:
+
+def foo(x, y):
+    print("x =", x, "y =", y)
+
+a = 1, 2
+foo(*a)
+
+This prints "x = 1 y = 2".
+
+Python lets you do some helpful stuff with this kind of
+syntax:
+
+a, b = b, a
+
+This command swaps the values of a and b!
+
+List splices are probably the reason people like python
+as much as they do. List splices create a COPY of a list
+in a certain range. A change to the copy will not reflect
+on the original. Here's what a splice looks like:
+
+a_splice_list = a_list[0:1]
+
+Will create a splice with elements in the range 0 to 1-1
+in the original. So it only contains the element at index 0.
+
+Alternatively, you can use a negative value to specify a
+stopping point relative to the end of the list:
+
+a_splice_list = a_list[0:-2]
+
+Will create a splice with elements in the range 0 to
+len(a_list)-2.
+
+Finally, you can dictate the rate of sampling of elements in
+the list:
+
+a_splice_list = a_list[0:-1:2]
+
+Will create a splice with every second element in the original
+list!
+
+Now we'll briefly touch on two last things.
+
+In computing we can have recursive functions, which you might
+recognize from math, if you ever had to do anything like a
+proof by induction. These look like:
+
+def fibonacci(n):
+    if n == 0:
+        return 0
+    elif n == 1:
+        return 1
+    else:
+        return fibonacci(n - 1) + fibonacci(n - 2)
+
+This function, intuitively, generates the n'th fibonacci number.
+The key take away here is that this is less efficient than a
+solution that is not recursive because... err... function
+overheads... which we will not discuss... Additionally,
+it can be dangerous because if you don't have a proper
+exit point for the function it can eat up memory fast.
+
+When you do write recursive functions always always always choose
+proper exit conditions. In the fibonacci example, if we only had
+an if block for n == 0 and not n == 1 we would crash and burn.
+See if you can figure out why.
+
+Last but most important of all :) is classes. We won't be going into
+much detail. Classes are just a way to store variables (attributes)
+with functions that act on them (methods). In Python virtually
+everything is an instance of a class. This means that they have their
+own special methods, called like:
+
+a_list.append(5)
+
+---------------------------------------------------------
+|                      EXERCISES 2                      |
+---------------------------------------------------------
+
+1.  Create the function:
+
+    def find_smallest(lst):
+
+    That takes a list of positive integers, and returns
+    the smallest element of the list. If there are no
+    elements, return -1.
+
+    find_smallest([2,1,3])
+     ->1
+    find_smallest([])
+     ->-1
+
+2.  Create the function:
+
+    def powerset_len(lst):
+
+    That takes a list, and returns the number of possible
+    subsets of that list (including an empty list). :)
+
+    powerset_len([1, 2])
+     ->4
+
+
+---------------------------------------------------------
+|                        WRAP UP                        |
+---------------------------------------------------------
+
+And... That's all there is to it. Except for some form
+specific stuff that you'll probably pick up when we start
+working, and knowledge of the common methods.
+
+---------------------------------------------------------
+|                    EXTRA EXERCISES                    |
+---------------------------------------------------------
+I couldn't write a coding tutorial without including some
+legitimately interesting problems. This is the kind of
+thing that makes you fall in love with programming. Don't
+worry too much if you can't solve them; quite a few of
+the career programmers I know struggle with them too.
+
+Some of these come from leetcode, others from highschool
+comp-sci class.
+
+1.  Create the function:
+
+    def pyramid(c, n):
+
+    That takes a character c and an integer n, then
+    prints a pyramid of character c with depth n. For
+    example:
+
+    pyramid('*', 0)
+     -> ""
+    pyramid('*', 3)
+     -> "  *
+          ***
+         *****"
+
+2.  Create the function:
+
+    def num_paths(obstacle_array):
+
+    That takes a list of lists of ints called
+    obstacle_array. Each int is either 1 or 0. 1 indicates
+    that there is an obstacle at that position in
+    obstacle_array. obstacle_array[0][0] is the top left
+    of the array, and obstacle_array[-1][-1] is the bottom
+    right of the array.
+
+    Return the total number of paths you can take by starting
+    at the top left and only moving down or right where there
+    are no obstacles, then finishing at the bottom right.
+
+    x = [ [0, 0, 0]
+          [0, 1, 0]
+          [0, 0, 0] ]
+    num_paths(x)
+     ->2
+
+    x = [ [0, 0, 0]
+          [0, 1, 0]
+          [1, 0, 0] ]
+    num_paths(x)
+     ->1
+
+    Hint: use recursion
