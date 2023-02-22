@@ -1,0 +1,80 @@
+---------------------------------------------------------
+|                      VIM CHEATSHEET                   |
+---------------------------------------------------------
+
+Welcome to VIM. VIM is essentially a tool for writing
+text without needing to use your mouse by using hotkeys
+to move around instead, with the advantage that it lets
+you work a lot faster.
+
+ -> Normal mode:
+In VIM you start out in Normal mode. This is the mode
+that enables most of the hotkeys, so be careful what you
+press! Some useful hotkeys are as follows:
+ - u    Undo!
+ - [CTRL r] Redo!
+ - yy   Yank one line. Like copy, but
+        doesn't go to the normal clipboard.
+ - dd   Delete and yank one line.
+ - |number|yy    Yank the next |number| lines.
+ - |number|dd    Delete and yank the next |number| lines.
+ - p    Paste!
+ - >>   Move line up one indent.
+ - <<   Move line down one indent.
+ - |number|>>   Move the next |number| lines up one
+                indent.
+ - |number|<<   Move the next |number| lines down one
+                indent.
+ - gg   Go to start of file.
+ - G    Go to end of file.
+ - |number|gg   Go to line |number|.
+ - |number|G    Go to line |number|. 
+ - [CTRL SHIFT V]   Paste from normal clipboard, say if
+                    you're copying from the web.
+ - b    Go to beginning of current word.
+ - e    Go to end of current word.
+ - /|sequence|  Search for the next occurance of
+                |sequence|.
+ - n    Go to the next result in your last search.
+
+There's a lot more to talk about, but you don't need
+absolutely every keyword to get fast with VIM. If you
+want to learn how to do something that I haven't
+mentioned, look it up! Vim supports a lot of things!
+
+Next let's talk about commands. There are a lot of these,
+but I'll only be covering a select few. You start a command
+by entering a ':'
+ - :w   Write current changes to the file you're editing.
+ - :q   Quit out of the file you're editing.
+ - :wq  Write and then quit out of the file you're editing.
+ - :q!  Ignore all warnings/discard current changes and quit.
+ - :%s/|seq1|/|seq2|/g  Replace all occurances of |seq1| with
+                        |seq2|.
+ - :edit |file| Open another file as a buffer. Buffers will
+                be numbered, starting from 1.
+                (Note, we have a file tree on the left that
+                might be easier to work with instead)
+                When you start vim initially with more than 1
+                file, each file gets opened as a buffer as if
+                you had used the edit command.
+ - :b|number|   Switch to buffer |number|.
+ - :bd          Close the current buffer.
+
+ -> Insert mode:
+You can enter insert mode by pressing 'i', 'o', or 'a' from
+normal mode. Insert mode is where you get to type! When you're
+done typing, you press ESC to go back to normal mode.
+
+ -> Visual mode:
+You can enter visual mode by pressing 'v' or 'V'. Visual mode
+lets you move around to highlight everything under your cursor,
+so that you can use one of the hotkeys we talked about earlier
+to do something to all of the highlighted characters at once.
+'v' highlights by character, whereas 'V' highlights by line.
+'V' followed by 'G' will highlight all lines below your cursor.
+You can press ESC to go back to normal mode.
+
+And... That's it. If something seems hard to you, that's probably
+because you aren't doing it the best way, so make sure to consult
+google.

@@ -1,0 +1,305 @@
+---------------------------------------------------------
+|                    PYTHON INTRO                       |
+---------------------------------------------------------
+
+Welcome to python! A python file is any file with the
+'.py' extension, and these files can be run by calling
+'python <filename>.py' from the terminal.
+
+Let's talk the very basics (I'll try to get to some
+puzzles later, but you need a starting point)... Note
+that for the sake of saving time I'm going to be skipping
+some terminology that you don't need to know.
+
+All of this stuff is fairly intuitive from a math
+background so feel free to skim through it and just pay
+attention to the syntax.
+
+In python, tabs are sacred. Tabs denote individual blocks
+of code.
+
+Python uses functions. Functions are essentially a
+grouping of code to accomplish a specific task. A
+python function definition has three(ish) parts:
+
+def name(parameters):
+    code_block
+
+Where:
+ -  def is a keyword used to specify the start of a
+    function definition
+ -  name is the name of the function.
+ -  parameters is a comma separated list of names for
+    values to be used by the function when it is called.
+ -  code_block is the block of code contained within the
+    function.
+Now that the function is defined, it can be called to
+execute the code in 'code_block' for changing input values
+'parameters'. A function call looks like this:
+
+name(arguments)
+
+Where:
+ -  name is the name of an existing function.
+ -  arguments is the comma separated list of values passed
+    to the function and stored in its parameters.
+
+You can define an empty function, then call it with the
+following code:
+
+def foo():
+    pass
+
+foo()
+
+print() is an example of a function that you will commonly
+see. It takes as arguments any amount of arguments to print
+to the display as strings. You can call print() to say 'Hi'
+with the following code:
+
+print("Hi")
+
+Functions can have return values. When a function returns
+a value, that value is "returned" to where the function
+call took place. For example:
+
+def foo(hi_str):
+    return hi_str
+
+print(foo("Hi"))
+
+Will pass "Hi" to foo(), return "Hi" from foo, then print
+"Hi".
+
+Datatypes are just any form that data can take. There a
+couple of notable distinctions here that  we'll go into
+when we talk about classes. A few types of data are:
+ -  Integers,
+        1, 2, 3
+ -  Floats,
+        1.0, 2.71, 3.14
+ -  Strings,
+        "Hi", 'Hello', ""
+ -  Booleans,
+        true, false
+
+Arithmetic operations are ... well, operations. They can
+be applied to one or more operands. How each operation is
+performed depends on the type of data. Some operations are:
+ -  op1 + op2   Add op1 to op2.
+ -  op1 - op2   Subtract op2 from op1.
+ -  op1 * op2   Multiply op1 by op2.
+ -  op1 / op2   Divide op1 by op2 (result is a float).
+ -  op1 // op2  Divide op1 by op2 (result is an int).
+ -  op1 % op2   Take the remainder from the division of op1
+                by op2.
+
+Operations are executed in a certain order, but it is ALWAYS
+best to surround them with parentheses so that the order does
+not matter.
+
+You should test around with each operation on combinations
+of the datatypes we've talked about to see the result.
+
+Variables are a place you can store values. Parameters
+are variables. You can define a variable x to store the
+value 5 as follows:
+
+x = 5
+
+Variables can be assigned new values:
+
+x = 5
+x = 6
+print(x)
+
+Will output 6. When assigning a new value to a variable,
+always use the same datatype as what it held originally.
+If you need a different datatype, create a new variable.
+
+If a variable's value is accessed before it is assigned,
+this will cause an error. Your plugins should be able
+to warn you about this ahead of time.
+
+Variables are only meaningful inside of their own scope.
+For example:
+
+x = 5
+
+def foo():
+    x = 6
+
+foo()
+print(x)
+
+Will print 5, because foo() holds a different variable x
+whose scope is limited to within the function. Likewise:
+
+x = 5
+
+def foo(x):
+    x = 6
+
+foo(x)
+print(x)
+
+Will print 5, however:
+
+x = "Hi"
+
+def foo():
+    print(x)
+
+foo()
+
+Will print "Hi"! In this case x has global scope, since
+it was accessed, but not assigned. If the compiler
+assumed it had scope local to foo(), there would have been
+an "accessed before assignment" error. You can force a
+variable to have global scope by doing the following:
+
+x = "Hi"
+
+def foo():
+    global x
+    x = "No"
+
+foo()
+print(x)
+
+Will print "No". All that said, it is bad practice to use
+global variables. Only do so if you have an extremely good
+reason.
+
+You can re-assign a variable by applying an operation to
+the initial value by doing the following:
+
+x += 1
+
+This is the same as:
+
+x = x + 1
+
+---------------------------------------------------------
+|                 EXERCISES 1 + GIT                     |
+---------------------------------------------------------
+
+You should already be on a branch called "training".
+Lets start by creating a new one that branches off of
+"training" for writing your solutions to the exercises.
+ALWAYS do this, since it helps us work separately and
+forces us to go through an approval process before making
+a change.
+
+You can create a new local branch by entering the
+following command in the commandline:
+
+git checkout -b your_branch_name
+
+Now you can create a python file for your changes named
+"ex1.py", but this file is completely new so git is not
+yet tracking it under version control. To track the file
+with git, run:
+
+git add ex1.py
+
+Now git knows about "ex1.py", but you haven't told it
+to save its current state. You can do this with commit:
+
+git commit ex1.py
+
+or
+
+git commit -a
+
+Where -a commits all tracked files with modifications on
+the branch. Now you will be prompted to write a commit
+message so that someone can know what was changed in the
+commit.
+
+You will want to commit frequently, because this prevents
+you from losing progress if something happens to one of
+your files, and lets you switch back to earlier versions
+of your files if you decide you don't like a change you
+made.
+
+You're currently working on a local (invisible to everyone
+else) branch. To create a remote (visible) branch with your
+changes, run:
+
+git push
+
+This will fail, and you can just copy and run the
+--set-upstream command it outputs.
+
+Now whenever you have committed changes locally and want
+to add them to your remote branch, just run:
+
+git push
+
+Now we'll get to some exercises.
+
+1.  Write the function:
+
+    def print_n_times(str, n):
+
+    Which takes as input a string and an integer. The
+    string will be printed n times in the following
+    way:
+
+    print_n_times("Hello World", 5)
+    ->"Hello WorldHello WorldHello WorldHello WorldHello World"
+
+2.  Write the function:
+
+    def get_sec_in_min(sec_in_day):
+
+    Which takes as input an integer representing the number of
+    seconds you are into the current day, and returns the
+    number of seconds you are into the current minute. For
+    example:
+    
+    get_sec_in_min(86000)
+    ->20
+
+3.  Write the function:
+
+    def print_time_from_sec(sec_in_day):
+
+    Which takes as input an integer representing the number of
+    seconds into the current day, and prints the current time
+    in military time.
+    For example:
+
+    print_time_from_sec(86000)
+    ->"23:53:20"
+
+Finally push all of your changes to the remote branch, and I can
+help you through making a pull request, then I'll update this
+file with the rest of the material back on the training branch
+so you can get a shot at rebasing.
+When everything is ready, just:
+
+git switch training
+
+Or...
+
+git checkout training
+
+To swap over to the training branch...
+
+git pull
+
+To pull the commits that are on the remote branch but not your
+local branch. Swap back to your branch with one of the commands
+from earlier, and finally...
+
+git rebase training
+
+To get your branch up to date with the commits from training.
+
+If you encounter problems with git at any stage in this process,
+use the following commands to find the problem and fix it:
+
+git diff
+git status
